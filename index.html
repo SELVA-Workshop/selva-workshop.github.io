@@ -1,42 +1,428 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SELVA Workshop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SELVA Workshop @ ACL 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; max-width: 880px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
-    h1 { margin-bottom: 0.2em; }
-    .tag { color: #555; margin-bottom: 1.2em; }
-    .card { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin: 14px 0; }
-    a { text-decoration: none; }
+    :root{
+      --bg:#f7f9fc;
+      --paper:#ffffff;
+      --text:#1f2937;
+      --muted:#5b6470;
+      --primary:#0f4c81;
+      --primary-2:#1864ab;
+      --border:#e5e7eb;
+      --shadow:0 8px 24px rgba(15, 76, 129, .10);
+      --radius:16px;
+      --maxw:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.65;
+    }
+    a{color:var(--primary-2);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .topbar{
+      position:sticky;top:0;z-index:40;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:saturate(180%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      min-height:68px;gap:16px;
+    }
+    .brand{font-weight:800;color:#0b3256;letter-spacing:.2px}
+    .brand small{font-weight:600;color:#4b5c6b}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap}
+    .nav-links a{
+      font-weight:600;color:#334155;font-size:14px
+    }
+
+    .hero{
+      position:relative;min-height:460px;display:flex;align-items:center;
+      background:
+        linear-gradient(120deg, rgba(7, 28, 48, .85), rgba(10, 56, 94, .70)),
+        url('https://upload.wikimedia.org/wikipedia/commons/8/81/Skyline_of_San_Diego.jpg') center/cover no-repeat;
+      color:#fff;
+    }
+    .hero .container{padding-top:56px;padding-bottom:56px}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.30);
+      padding:6px 12px;border-radius:999px;
+      font-weight:600;font-size:13px;
+    }
+    h1{
+      margin:16px 0 12px;font-size:clamp(30px, 4.5vw, 52px);
+      line-height:1.12;letter-spacing:-.02em;
+      max-width:980px;
+    }
+    .subtitle{
+      max-width:920px;
+      font-size:clamp(15px,2vw,20px);
+      color:#dbeafe;
+      margin-bottom:20px;
+    }
+    .hero-meta{
+      display:flex;gap:12px;flex-wrap:wrap;margin-top:14px
+    }
+    .pill{
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.26);
+      border-radius:999px;padding:7px 12px;font-weight:600;font-size:13px
+    }
+
+    section{
+      padding:58px 0;
+      scroll-margin-top:84px;
+    }
+    .section-title{
+      font-size:30px;line-height:1.2;margin:0 0 10px;color:#0f3d66
+    }
+    .section-lead{margin:0 0 24px;color:var(--muted);max-width:900px}
+    .paper{
+      background:var(--paper);border:1px solid var(--border);
+      border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);
+    }
+
+    .grid{
+      display:grid;gap:18px
+    }
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media (max-width:1000px){ .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+    @media (max-width:820px){ .grid-3,.grid-2{grid-template-columns:1fr} .nav{padding:8px 0} }
+
+    .card{
+      background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;
+      box-shadow:0 4px 14px rgba(2, 30, 56, .06);
+    }
+    .speaker img{
+      width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid var(--border);
+      background:#eef2f7
+    }
+    .speaker h3{font-size:18px;margin:10px 0 2px}
+    .speaker p{margin:0;color:#5a6675;font-size:14px}
+    .speaker .bio{margin-top:10px;color:#334155;font-size:14px;line-height:1.58}
+
+    .timeline{
+      border-left:3px solid #cfe2f6;margin-left:8px;padding-left:16px
+    }
+    .timeline-item{margin:0 0 14px}
+    .timeline-item h4{margin:0;font-size:16px}
+    .timeline-item p{margin:4px 0 0;color:#5a6675;font-size:14px}
+
+    .topics{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+    }
+    @media (max-width:820px){ .topics{grid-template-columns:1fr} }
+
+    .topic{
+      border:1px solid var(--border);border-radius:12px;padding:14px;background:#fff
+    }
+    .topic b{color:#0d4676}
+
+    .venue{
+      display:grid;grid-template-columns:1.2fr 1fr;gap:20px
+    }
+    .venue img{
+      width:100%;height:100%;max-height:360px;object-fit:cover;border-radius:14px;border:1px solid var(--border)
+    }
+    @media (max-width:900px){ .venue{grid-template-columns:1fr} }
+
+    table{
+      width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden
+    }
+    th,td{padding:12px 14px;border:1px solid var(--border);vertical-align:top}
+    thead th{background:#f0f6fc;color:#123c63;text-align:left}
+
+    .footer{
+      margin-top:28px;padding:22px 0;border-top:1px solid var(--border);color:#607080;font-size:13px
+    }
+
+    .small{font-size:13px;color:#6b7280}
+    .tba{display:inline-block;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:8px;padding:2px 8px;font-size:12px;font-weight:700}
   </style>
 </head>
 <body>
-  <h1>SELVA 2026 Workshop</h1>
-  <div class="tag">Sustainable and Efficient Language, Vision, and Action Models</div>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">SELVA 2026 <small>· ACL Workshop</small></div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#cfp">Calls</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#committee">Committee</a>
+        <a href="#venue">Venue</a>
+      </nav>
+    </div>
+  </header>
 
-  <div class="card">
-    <h3>About</h3>
-    <p>
-      The SELVA workshop focuses on efficiency and sustainability of Language, Vision, and Action models.
-    </p>
-  </div>
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="badge">The 1st International Workshop · Sustainable & Efficient LVA Models</div>
+      <h1>The 1st International Workshop on Sustainable and Efficient Language, Vision, and Action Models (SELVA)</h1>
+      <p class="subtitle">
+        Confronting the computational costs of scaling Language, Vision, and Action Models.
+      </p>
+      <div class="hero-meta">
+        <span class="pill">ACL 2026 Co-located Workshop</span>
+        <span class="pill">San Diego, California, USA</span>
+        <span class="pill">Tentative: one-day hybrid workshop</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="card">
-    <h3>Important Links</h3>
-    <ul>
-      <li><a href="#">Call for Papers (Coming Soon)</a></li>
-      <li><a href="#">Program (Coming Soon)</a></li>
-      <li><a href="#">Submission (Coming Soon)</a></li>
-    </ul>
-  </div>
+  <section id="overview">
+    <div class="container">
+      <h2 class="section-title">Overview</h2>
+      <p class="section-lead">
+        SELVA focuses on efficiency and sustainability across language, vision, and action models,
+        especially for real-time and resource-constrained deployment.
+      </p>
+      <div class="paper">
+        <p>
+          Recent advances in LLMs, VLMs, and VLA systems are accompanied by rapidly increasing compute and energy costs.
+          SELVA aims to foster cross-disciplinary discussion spanning NLP, computer vision, robotics, and systems to develop
+          methods that are both high-performing and computationally feasible.
+        </p>
+        <div class="topics">
+          <div class="topic"><b>Efficient Architectures for Multimodality</b><br/>MoE, state-space models, and sparse routing for language-vision-action fusion.</div>
+          <div class="topic"><b>Model Compression and Acceleration</b><br/>Sub-4-bit quantization, structured pruning, and distillation.</div>
+          <div class="topic"><b>Sustainable Training and Real-Time Inference</b><br/>Energy-aware pretraining, PEFT, and optimized engines for low latency.</div>
+          <div class="topic"><b>Efficiency for Embodied AI</b><br/>Efficient world models, policy optimization, and low-compute interaction loops.</div>
+          <div class="topic"><b>Metrics, Measurement, and Societal Impact</b><br/>Transparent energy/latency reporting and broader environmental implications.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="card">
-    <h3>Organizers</h3>
-    <p>Jian Cheng; Michele Magno; Zechun Liu; Olivera Kotevska; Yawei Li; Haotong Qin</p>
-    <p>Contact: <a href="mailto:haotong.qin@pbl.ee.ethz.ch">Haotong Qin</a></p>
-  </div>
+  <section id="cfp">
+    <div class="container">
+      <h2 class="section-title">Call for Papers</h2>
+      <p class="section-lead">
+        We welcome high-quality original research and system papers related to efficient and sustainable LVA models.
+      </p>
+      <div class="grid grid-2">
+        <div class="paper">
+          <h3>Submission Scope</h3>
+          <ul>
+            <li>Efficient multimodal and embodied AI architectures</li>
+            <li>Compression, quantization, pruning, and distillation for foundation models</li>
+            <li>Systems optimization and low-latency deployment pipelines</li>
+            <li>Energy/latency benchmarks and trustworthy reporting</li>
+            <li>Sustainable AI policy and broader impact analyses</li>
+          </ul>
+          <p class="small">Hybrid format planned: invited talks, contributed talks, poster session, and award ceremony.</p>
+        </div>
+        <div class="paper">
+          <h3>Important Dates <span class="tba">update when ready</span></h3>
+          <div class="timeline">
+            <div class="timeline-item"><h4>Paper submission deadline</h4><p>TBA</p></div>
+            <div class="timeline-item"><h4>Notification</h4><p>TBA</p></div>
+            <div class="timeline-item"><h4>Camera-ready deadline</h4><p>TBA</p></div>
+            <div class="timeline-item"><h4>Workshop date</h4><p>Tentative: during ACL 2026 workshop days (Jul 3–4, 2026), exact day TBA.</p></div>
+          </div>
+          <p class="small">Timezone convention (recommended): AoE (UTC−12).</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section id="schedule">
+    <div class="container">
+      <h2 class="section-title">Workshop Schedule (Template)</h2>
+      <p class="section-lead">
+        One-day schedule template matching the submission plan; replace with finalized slots after acceptance and confirmation.
+      </p>
+      <div class="paper">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Session</th><th>Details</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>09:00–09:15</td><td>Opening</td><td>Welcome remarks and workshop overview</td></tr>
+            <tr><td>09:15–10:00</td><td>Invited Talk 1</td><td>Energy-efficient LVA models</td></tr>
+            <tr><td>10:00–10:45</td><td>Invited Talk 2</td><td>Hardware-software co-design for sustainable AI</td></tr>
+            <tr><td>11:00–12:30</td><td>Contributed Talks</td><td>Selected paper oral presentations</td></tr>
+            <tr><td>14:00–15:30</td><td>Poster Session</td><td>Interactive poster + demo session</td></tr>
+            <tr><td>15:45–16:30</td><td>Panel Discussion</td><td>Benchmarks, deployment, and policy implications</td></tr>
+            <tr><td>16:30–17:00</td><td>Awards & Closing</td><td>Best paper / outstanding contributions</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="speakers">
+    <div class="container">
+      <h2 class="section-title">Confirmed Invited Speakers</h2>
+      <p class="section-lead">
+        Indicative confirmed invited speakers from the workshop submission.
+      </p>
+      <div class="grid grid-3">
+        <article class="card speaker">
+          <img src="https://buddhiststudies.berkeley.edu/sites/default/files/styles/openberkeley_brand_widgets_rectangle/public/kurt_k.png?itok=3z-VD3P8&timestamp=1702660867" alt="Kurt Keutzer">
+          <h3>Kurt Keutzer</h3>
+          <p>UC Berkeley</p>
+          <p class="bio">Practical challenges in training and deploying efficient deep neural networks.</p>
+        </article>
+
+        <article class="card speaker">
+          <img src="https://ethz.ch/en/the-eth-zurich/portrait/latest-honours-and-prizes/2023/02/prof-luca-benini-receives-ieee-2023-edward-j-mccluskey-technical-achievement-award/_jcr_content/wide_content/textimage/image.imageformat.textdouble.413553798.jpg" alt="Luca Benini">
+          <h3>Luca Benini</h3>
+          <p>ETH Zürich</p>
+          <p class="bio">PULP platform pioneer; energy-efficient hardware for real-time embodied AI at the edge.</p>
+        </article>
+
+        <article class="card speaker">
+          <img src="https://yukangchen.com/images/Photo-Square.png" alt="Yukang Chen">
+          <h3>Yukang Chen</h3>
+          <p>NVIDIA</p>
+          <p class="bio">LongLoRA / LongVILA and efficient long-context modeling for interactive agents.</p>
+        </article>
+
+        <article class="card speaker">
+          <img src="https://viterbi.usc.edu/directory/images/407c18c22baa9d98e03cf8d819c5f490.jpg" alt="Priyadarshini Panda">
+          <h3>Priyadarshini Panda</h3>
+          <p>University of Southern California</p>
+          <p class="bio">Algorithm-hardware co-design and neuromorphic computing for ultra-low-power AI systems.</p>
+        </article>
+
+        <article class="card speaker">
+          <img src="https://xlliu-beihang.github.io/image/mypics2.jpg" alt="Xianglong Liu">
+          <h3>Xianglong Liu</h3>
+          <p>Beihang University</p>
+          <p class="bio">Lightweight computing and compression for resource-constrained LVA deployment.</p>
+        </article>
+
+        <article class="card speaker">
+          <img src="https://ece.engineering.arizona.edu/sites/default/files/styles/az_medium/public/2024-09/Huanrui-Yang-760x950px.png.webp?itok=0ZNTYDJj" alt="Huanrui Yang">
+          <h3>Huanrui Yang</h3>
+          <p>University of Arizona</p>
+          <p class="bio">Mathematical foundations of efficient deployment and adaptation for robust AI models.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="organizers">
+    <div class="container">
+      <h2 class="section-title">Organizers</h2>
+      <p class="section-lead">
+        Core organizers and contributors listed in the submission.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Jian Cheng</h3>
+          <p>Institute of Automation, Chinese Academy of Sciences</p>
+          <p class="small"><a href="https://people.ucas.ac.cn/~chengjian?language=en" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Michele Magno</h3>
+          <p>ETH Zürich</p>
+          <p class="small"><a href="https://ee.ethz.ch/the-department/people-a-z/person-detail.michele-magno.html" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Zechun Liu</h3>
+          <p>Meta</p>
+          <p class="small"><a href="https://zechunliu.com/" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Olivera Kotevska</h3>
+          <p>Oak Ridge National Laboratory</p>
+          <p class="small"><a href="https://www.ornl.gov/staff-profile/olivera-kotevska" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Yawei Li</h3>
+          <p>ETH Zürich</p>
+          <p class="small"><a href="https://yaweili.bitbucket.io/" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Haotong Qin</h3>
+          <p>ETH Zürich</p>
+          <p class="small"><a href="https://htqin.github.io/" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+        <div class="card">
+          <h3>Weilun Feng</h3>
+          <p>Institute of Computing Technology, Chinese Academy of Sciences</p>
+          <p class="small"><a href="https://wlfeng0509.github.io/" target="_blank" rel="noopener">Homepage</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="committee">
+    <div class="container">
+      <h2 class="section-title">Program Committee (partial)</h2>
+      <p class="section-lead">
+        Initial PC members listed in the submission excerpt (can be extended on final website).
+      </p>
+      <div class="paper">
+        <div class="grid grid-2">
+          <ul>
+            <li>Yiming Li — Tsinghua University</li>
+            <li>Mingyuan Zhang — Nanyang Technological University</li>
+            <li>Xiaojun Jia — Chinese Academy of Sciences</li>
+            <li>Jindong Gu — University of Munich</li>
+            <li>Siqi Wang — Boston University</li>
+          </ul>
+          <ul>
+            <li>Yuhang Li — Yale University</li>
+            <li>Yajun Gao — Beijing Jiaotong University</li>
+            <li>Akshayvarun Subramanya — UMBC</li>
+            <li>Aniruddha Saha — University of Maryland Baltimore County</li>
+            <li>... (more to be announced)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="venue">
+    <div class="container">
+      <h2 class="section-title">Venue & Logistics</h2>
+      <p class="section-lead">
+        ACL 2026 is scheduled in San Diego, and workshop logistics can align with the ACL workshop venue details.
+      </p>
+
+      <div class="venue">
+        <div class="paper">
+          <h3>Co-located Conference</h3>
+          <p><b>The 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026)</b></p>
+          <p>San Diego, California, USA · July 2–7, 2026</p>
+          <p>Workshop days: July 3–4, 2026 (SELVA exact date/room TBD).</p>
+          <h3>Conference Venue (ACL 2026)</h3>
+          <p><b>Grand Hyatt Manchester San Diego</b><br/>1 Market Place, San Diego, CA 92101</p>
+          <p class="small">
+            <a href="https://2026.aclweb.org/venue/" target="_blank" rel="noopener">ACL 2026 venue page</a> ·
+            <a href="https://www.hyatt.com/en-US/group-booking/SANGH/G-ACL2" target="_blank" rel="noopener">Hotel booking link</a>
+          </p>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Manchester_Grand_Hyatt_Hotel%2C_San_Diego.jpg" alt="Grand Hyatt Manchester San Diego">
+      </div>
+
+      <div class="footer">
+        Contact: <a href="mailto:selva-workshop@googlegroups.com">selva-workshop@googlegroups.com</a> ·
+        Last updated: Feb 2026<br/>
+        Photo credits: Wikimedia Commons (San Diego skyline and Grand Hyatt), and speakers' official profile pages.
+      </div>
+    </div>
+  </section>
 </body>
 </html>
