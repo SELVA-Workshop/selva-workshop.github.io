@@ -155,6 +155,29 @@
     th,td{padding:12px 14px;border:1px solid var(--border);vertical-align:top}
     thead th{background:#f0f6fc;color:#123c63;text-align:left}
 
+    .schedule-card{padding:0;overflow:hidden}
+    .schedule-wrap{overflow-x:auto}
+    .schedule-table{
+      min-width:760px;table-layout:fixed;border-radius:0;overflow:visible
+    }
+    .schedule-table th,.schedule-table td{border-color:#cbd5e1;padding:14px 16px}
+    .schedule-table th{
+      background:#eaf2fa;color:#0f3d66;font-size:15px;font-weight:800;letter-spacing:.01em
+    }
+    .schedule-table th:nth-child(1){width:19%}
+    .schedule-table th:nth-child(2){width:23%}
+    .schedule-table th:nth-child(3){width:58%}
+    .schedule-table td:first-child{
+      background:#f4f7fb;color:#24364a;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap
+    }
+    .schedule-table .schedule-event{color:#123c63;font-weight:700}
+    .schedule-table .schedule-paper{font-size:13px;line-height:1.5;color:#334155}
+    .schedule-table .schedule-wide{
+      background:#f8fafc;color:#0f3d66;text-align:center;font-weight:800;letter-spacing:.01em
+    }
+    .schedule-table tbody tr:hover td{background:#f7fbff}
+    .schedule-table tbody tr:hover td:first-child{background:#eaf2fa}
+
     .footer{
       margin-top:28px;padding:22px 0;border-top:1px solid var(--border);color:#607080;font-size:13px
     }
@@ -286,26 +309,28 @@
       <p class="section-lead">
         July 3, 2026
       </p>
-      <div class="paper">
-        <table>
+      <div class="paper schedule-card">
+        <div class="schedule-wrap">
+        <table class="schedule-table">
           <thead>
-            <tr><th>Time</th><th>Program</th></tr>
+            <tr><th>Time</th><th>Event</th><th>Speaker / Paper</th></tr>
           </thead>
           <tbody>
-            <tr><td>09:00</td><td>Opening</td></tr>
-            <tr><td>09:00–09:20</td><td>Invited Talk — Ruihao Gong</td></tr>
-            <tr><td>09:20–09:40</td><td>Invited Talk — Michele Magno</td></tr>
-            <tr><td>09:40–10:00</td><td>Invited Talk — Priya Panda</td></tr>
-            <tr><td>10:00–10:10</td><td>Oral Paper — QuantEL: Quantization-Informed Activation Editing Localization for Hallucination Mitigation in Quantized LLMs</td></tr>
-            <tr><td>10:10–10:20</td><td>Oral Paper — Understanding and Selecting Calibration Data for LLM Quantization: From Sensitivity Analysis to Activation-Based Curation</td></tr>
-            <tr><td>10:20–10:30</td><td>Break</td></tr>
-            <tr><td>10:30–10:50</td><td>Invited Talk — Huanrui Yang</td></tr>
-            <tr><td>10:50–11:10</td><td>Invited Talk — Yukang Chen</td></tr>
-            <tr><td>11:10–11:20</td><td>Oral Paper — Linear Predictability of Attention Heads in Large Language Models</td></tr>
-            <tr><td>11:20–11:30</td><td>Oral Paper — TiRO: Fast Discrete-Diffusion VLA Inference via Teacher-Initialized Rollout</td></tr>
-            <tr><td>11:30</td><td>Awarding &amp; Closing</td></tr>
+            <tr><td>09:00</td><td colspan="2" class="schedule-wide">Opening Remarks</td></tr>
+            <tr><td>09:00–09:20</td><td class="schedule-event">Invited Talk 1</td><td>Ruihao Gong</td></tr>
+            <tr><td>09:20–09:40</td><td class="schedule-event">Invited Talk 2</td><td>Michele Magno</td></tr>
+            <tr><td>09:40–10:00</td><td class="schedule-event">Invited Talk 3</td><td>Priya Panda</td></tr>
+            <tr><td>10:00–10:10</td><td class="schedule-event">Oral Paper 1</td><td class="schedule-paper">QuantEL: Quantization-Informed Activation Editing Localization for Hallucination Mitigation in Quantized LLMs</td></tr>
+            <tr><td>10:10–10:20</td><td class="schedule-event">Oral Paper 2</td><td class="schedule-paper">Understanding and Selecting Calibration Data for LLM Quantization: From Sensitivity Analysis to Activation-Based Curation</td></tr>
+            <tr><td>10:20–10:30</td><td colspan="2" class="schedule-wide">Break</td></tr>
+            <tr><td>10:30–10:50</td><td class="schedule-event">Invited Talk 4</td><td>Huanrui Yang</td></tr>
+            <tr><td>10:50–11:10</td><td class="schedule-event">Invited Talk 5</td><td>Yukang Chen</td></tr>
+            <tr><td>11:10–11:20</td><td class="schedule-event">Oral Paper 3</td><td class="schedule-paper">Linear Predictability of Attention Heads in Large Language Models</td></tr>
+            <tr><td>11:20–11:30</td><td class="schedule-event">Oral Paper 4</td><td class="schedule-paper">TiRO: Fast Discrete-Diffusion VLA Inference via Teacher-Initialized Rollout</td></tr>
+            <tr><td>11:30</td><td colspan="2" class="schedule-wide">Awarding &amp; Closing</td></tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   </section>
